@@ -3,66 +3,73 @@ package it.uniroma3.configuration;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+	@Qualifier("dataSource")
 	@Autowired
 	private DataSource dataSource;
 	
-	@Value("${spring.queries.users-query}")
-	private String usersQuery;
+	private final String usersQuery = "SELECT username, password, TRUE FROM responsabile WHERE username=?";
 	
-	@Value("${spring.queries.roles-query}")
-	private String rolesQuery;
-
+	private final String rolesQuery = "SELECT username,role FROM responsabile WHERE username=?";
+	
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth)
-			throws Exception {
+	protected void configure(AuthenticationManagerBuilder auth)	throws Exception {
 		auth.
 			jdbcAuthentication()
-				.usersByUsernameQuery(usersQuery)
-				.authoritiesByUsernameQuery(rolesQuery)
 				.dataSource(dataSource)
-				.passwordEncoder(bCryptPasswordEncoder);
+				.passwordEncoder(bCryptPasswordEncoder())
+				.usersByUsernameQuery(usersQuery)
+				.authoritiesByUsernameQuery(rolesQuery);
 	}
 
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth)	throws Exception {
+		auth.
+			jdbcAuthentication()
+				.dataSource(dataSource)
+				.passwordEncoder(bCryptPasswordEncoder())
+				.usersByUsernameQuery(usersQuery)
+				.authoritiesByUsernameQuery(rolesQuery);
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.
-			authorizeRequests()
-				.antMatchers("/**").permitAll()
-				.antMatchers("/login").permitAll()
-				.antMatchers("centri/**").permitAll()
-				.antMatchers("/responsabili").permitAll()
-				.antMatchers("/responsabili/{id}").permitAll()
-				.antMatchers("/connectRespCentro/{id}").permitAll()
-				.antMatchers("/registration").permitAll()
-				.antMatchers("/resources/", "/static/", "/css/style.css").permitAll()
-				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-				.authenticated().and().csrf().disable().formLogin()
-				.loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/")
-				.usernameParameter("email")
-				.passwordParameter("password")
-				.and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/").and().exceptionHandling()
-				.accessDeniedPage("/access-denied");
+		http
+		.csrf().disable()
+			.authorizeRequests()
+				.antMatchers("/","/login").permitAll()
+				.anyRequest().permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/login")
+				.defaultSuccessUrl("/selectResponsabile")
+				.and()
+				.logout()
+				.logoutSuccessUrl("/login")
+				.permitAll();
 	}
 	
 	@Override

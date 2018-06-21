@@ -34,12 +34,8 @@
 								<p>
 								<h4>LISTA DEI CENTRI</h4>
 							</td>
-							<td width="10%">
-								
-										<i class="fa fa-home"></i>
-										<h3>HOME</h3>
-										<a th:href="@{/}">CLICCA QUI</a>
-						
+							<td><i class="fa fa-home"></i>
+							<a th:href="@{/}"><h3>DISCONNETTI</h3>
 							</td>
 						</tr>
 					</table>
@@ -59,7 +55,6 @@
 			<div class="text-center">
 				<div th:each="centro : ${centri}">
 					<h3>
-						<a th:href="@{'/centri' + '/' + ${centro.id}}">
 						<span th:text="${centro.nome}"></span></a>
 					</h3>
 				</div>

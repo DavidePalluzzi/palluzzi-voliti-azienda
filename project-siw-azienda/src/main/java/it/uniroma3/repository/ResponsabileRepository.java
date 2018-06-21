@@ -12,7 +12,10 @@ import it.uniroma3.model.Responsabile;
 
 public interface ResponsabileRepository extends CrudRepository <Responsabile,Long>{
 
-	List<Responsabile> findByNomeAndCognome(String nome, String cognome);
+	public List<Responsabile> findByNomeAndCognome(String nome, String cognome);
+
+	public Responsabile findByUsername(String username);
+
 	
 	
 	

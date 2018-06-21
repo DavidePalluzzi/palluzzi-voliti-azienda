@@ -5,7 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import it.uniroma3.model.Allievo;
+import it.uniroma3.model.Responsabile;
 @Component
 public class ResponsabileValidator implements Validator{
 
@@ -13,10 +13,13 @@ public class ResponsabileValidator implements Validator{
 	    public void validate(Object o, Errors errors) {
 	        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nome", "required");
 	        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cognome", "required");
+	        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "required");
+	        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "required");
+	        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "role", "required");
 	    }
 
 	    @Override
 	    public boolean supports(Class<?> aClass) {
-	        return Allievo.class.equals(aClass);
+	        return Responsabile.class.equals(aClass);
 	    }	
 }

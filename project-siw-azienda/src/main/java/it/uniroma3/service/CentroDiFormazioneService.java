@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.model.CentroDiFormazione;
+import it.uniroma3.model.Responsabile;
 import it.uniroma3.repository.CentroDiFormazioneRepository;
 
 import java.util.List;
@@ -42,6 +43,11 @@ public boolean alreadyExists(CentroDiFormazione centro) {
 		return true;
 	else 
 		return false;
+}
+
+public CentroDiFormazione findByResponsabile(Responsabile responsabile) {
+	return this.repository.findByResponsabile(responsabile);
+	
 }	
 
 }

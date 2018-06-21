@@ -1,9 +1,12 @@
 package it.uniroma3.controller;
 
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +32,7 @@ public class ResponsabileController {
 	private ResponsabileService responsabileService;
 	
 
+
 	
 	@Autowired
 	private ResponsabileValidator responsabileValidator;
@@ -45,6 +49,25 @@ public class ResponsabileController {
 		return "responsabileForm";
 	}
 
+	@RequestMapping(value="/selectResponsabile")
+	public String selectResponsabile(Model model, Authentication authentication) {
+		User user = (User) authentication.getPrincipal();
+		Responsabile responsabile = responsabileService.findByUsername(user.getUsername());
+		System.out.println("admin " + responsabile.getUsername() + ","+ responsabile.getRole());
+
+		if(responsabile.getRole().equals("ADMIN")) {
+			System.out.println("admin" + responsabile.getUsername() + " "+ responsabile.getRole());
+
+			return "adminHome";
+		}else {
+			if(responsabile.getRole().equals("USER")) {		
+				System.out.println("user" + responsabile.getUsername() + " "+ responsabile.getRole());
+				return "forward:/centri/"+centroService.findByResponsabile(responsabile).getId();
+			}
+		}
+		
+		return "non autorizzato";
+}
 	
 
 	@RequestMapping(value = "/responsabile", method = RequestMethod.POST)

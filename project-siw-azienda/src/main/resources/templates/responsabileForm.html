@@ -30,7 +30,7 @@
 								<h4>INSERISCI UN NUOVO RESPONSABILE</h4>
 							</td>
 							<td width="10%"><i class="fa fa-home"></i>
-								<h3>HOME</h3> <a th:href="@{/}">CLICCA QUI</a></td>
+								<a th:href="@{/}"><h3>DISCONNETTI</h3></a></td>
 						</tr>
 					</table>
 				</div>
@@ -46,8 +46,7 @@
 					<div class="row contact-wrap">
 						<div class="status alert alert-success" style="display: none"></div>
 						<form id="main-contact-form" class="contact-form"
-							name="contact-form" method="post" th:action="@{/responsabile}"
-							th:object="${responsabile}">
+							name="contact-form" method="post" th:action="@{/responsabile}"	th:object="${responsabile}">
 							<div class="col-sm-7 col-sm-offset-2">
 								<div class="form-group">
 									<label>Nome</label> <input type="text" name="nome"
@@ -55,13 +54,30 @@
 									<p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
 								</div>
 								<div class="form-group">
-
 									<label>Cognome:</label> <input type="text" class="form-control"
 										th:field="*{cognome}" />
 									<p th:if="${#fields.hasErrors('cognome')}"
 										th:errors="*{cognome}"></p>
 								</div>
-
+								<div class="form-group">
+									<label>Username :</label> <input type="text" class="form-control"
+										th:field="*{username}" />
+									<p th:if="${#fields.hasErrors('username')}"
+										th:errors="*{username}"></p>
+								</div>
+								<div class="form-group">
+									<label>password :</label> <input type="password" class="form-control"
+										th:field="*{password}" />
+									<p th:if="${#fields.hasErrors('password')}"
+										th:errors="*{password}"></p>
+								</div>
+								<div class="form-group">
+									<label>Ruolo :</label> 
+									<select name = "ruolo" th:field = "*{role}" >
+										<option style="color:black" value="USER" selected>USER</option>
+										<option style="color:black" value="ADMIN" selected>ADMIN</option>
+									</select>
+								</div>
 
 								<div class="form-group">
 									<button type="submit" name="submit"
