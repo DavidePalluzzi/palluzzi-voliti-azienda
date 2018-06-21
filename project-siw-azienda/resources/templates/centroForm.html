@@ -1,0 +1,169 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<div>
+		<p th:text="${exists}"></p>
+	</div>
+	
+	 <header id="header">
+        <nav class="navbar navbar-default navbar-static-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Menù</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                   <div class="navbar-brand">
+						<a href="/"><h1>AZIENDA</h1></a>
+					</div>
+                </div>				
+                <div class="navbar-collapse collapse">							
+					<div class="menu">
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation"><a href="/" class="active">Home</a></li>
+							
+						</ul>
+					</div>
+				</div>		
+            </div><!--/.container-->
+        </nav><!--/nav-->		
+    </header><!--/header-->	
+
+	<section class="contact-page">
+		<div class="container">
+			<div class="text-center">
+				<h2>Inserisci un nuovo centro</h2>
+			</div>
+			<div class="row contact-wrap">
+				<div class="status alert alert-success" style="display: none"></div>
+				<form id="main-contact-form" class="contact-form"
+					name="contact-form" method="post" th:action="@{/centri}"
+					th:object="${centro}">
+					<div class="col-sm-7 col-sm-offset-2">
+						<div class="form-group">
+							<label>Nome *</label> <input type="text" name="nome"
+								class="form-control" th:field="*{nome}">
+							<p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+						</div>
+						<div class="form-group">
+
+							<label>Indirizzo:</label> <input type="text" class="form-control"
+								th:field="*{indirizzo}" />
+							<p th:if="${#fields.hasErrors('indirizzo')}"
+								th:errors="*{indirizzo}"></p>
+						</div>
+
+						<div class="form-group">
+							<label>Telefono:</label> <input type="text" class="form-control"
+								th:field="*{telefono}" />
+							<p th:if="${#fields.hasErrors('telefono')}"
+								th:errors="*{telefono}"></p>
+						</div>
+
+						<div class="form-group">
+							<label>Email:</label> <input type="text" class="form-control"
+								th:field="*{email}" />
+							<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+						</div>
+
+						<div class="form-group">
+
+							<label>Capienza:</label> <input type="text" class="form-control"
+								th:field="*{capienza}" />
+							<p th:if="${#fields.hasErrors('capienza')}"
+								th:errors="*{capienza}"></p>
+						</div>
+						
+						
+
+						 <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary btn-lg" >Invio</button>
+                        </div>
+					</div>
+				</form>
+			</div>
+			<!--/.row-->
+		</div>
+		<!--/.container-->
+	</section>
+	<!--/#contact-page-->
+
+
+		
+	<footer>
+		<div class="container">
+			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+				<h4>About Us</h4>
+				<p>Il migliori software di gestione delle attività e degli allievi dei tuoi centri</p>						
+				<div class="contact-info">
+					<ul>
+						<li><i class="fa fa-home fa"></i>Via della vasca navale, Roma </li>
+						<li><i class="fa fa-envelope fa"></i> davide.palluzzi@gmail.com</li>
+						<li><i class="fa fa-envelope fa"></i> valerio.voliti@gmail.com</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">				
+				<div class="text-center">
+					<h4>Photo Gallery</h4>
+					<ul class="sidebar-gallery">
+						<li><a href="#"><img src="img/gallery1.png" alt="" /></a></li>
+						<li><a href="#"><img src="img/gallery2.png" alt="" /></a></li>
+						<li><a href="#"><img src="img/gallery3.png" alt="" /></a></li>
+						<li><a href="#"><img src="img/gallery4.png" alt="" /></a></li>
+						<li><a href="#"><img src="img/gallery5.png" alt="" /></a></li>
+						<li><a href="#"><img src="img/gallery6.png" alt="" /></a></li>					
+					</ul>
+				</div>
+			</div>
+			
+		</div>	
+	</footer>
+	
+	<div class="sub-footer">
+		<div class="container">
+			<div class="social-icon">
+				<div class="col-md-4">
+					<ul class="social-network">
+						<li><a href="#" class="fb tool-tip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#" class="gplus tool-tip" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
+						<li><a href="#" class="linkedin tool-tip" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+						<li><a href="#" class="ytube tool-tip" title="You Tube"><i class="fa fa-youtube-play"></i></a></li>
+					</ul>	
+				</div>
+			</div>
+			
+								
+		</div>				
+	</div>
+	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.js"></script>		
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>	
+	<script src="js/wow.min.js"></script>
+	<script>
+	wow = new WOW(
+	 {
+	
+		}	) 
+		.init();
+	</script>	
+    
+    
+</body>
+</html>

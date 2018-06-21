@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Centro</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/animate.css" />
+<link rel="stylesheet" type="text/css" href="css/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+</head>
+<body>
+<header id="header">
+		<nav class="navbar navbar-default navbar-static-top" role="banner">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-collapse">
+						<span class="sr-only">Menù</span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+					<div class="navbar-brand">
+						<a href="/">Azienda</a>
+					</div>
+				</div>
+				<div class="navbar-collapse collapse">
+					<div class="menu">
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation"><a href="/">Home</a></li>
+							<li role="presentation"><a th:href="@{/allievi}">Lista
+									allievi</a></li>
+							<li role="presentation"><a th:href="@{/addAllievo}">Inserisci
+									nuovo allievo</a></li>
+							<li role="presentation"><a th:href="@{/attivita}">Lista
+									di tutte le attivita</a></li>
+							<li role="presentation"><a th:href="@{/addAttivita}">Inserisci
+									nuova attivita</a></li>
+							<li role="presentation"><a th:href="@{/AllievoAttivita}">Inserisci
+									allievo in attivita</a></li>
+
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="text-center">
+
+		<div>
+			<h4>Centro Di Formazione</h4>
+			<div>
+				<span th:text="${centro.nome}"></span>
+			</div>
+			<div>
+				<span th:text="${centro.indirizzo}"></span>
+			</div>
+			<div>
+				<span th:text="${centro.telefono}"></span>
+			</div>
+			<div>
+				<span th:text="${centro.email}"></span>
+			</div>
+			<div>
+				<span th:text="${centro.capienza}"></span>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/wow.min.js"></script>
+	<script>
+		wow = new WOW({
+
+		}).init();
+	</script>
+</body>
+</html>
